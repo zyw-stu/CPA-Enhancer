@@ -1,8 +1,13 @@
-#  🚀 Introduction
+# CPA-Enhancer: Chain-of-Thought Prompted Adaptive Enhancer for Object Detection under Unknown Degradations
+##  🚀 Overview
+<p align="center">
+  <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/overall.png" alt="Overall Workflow of the CPA-Enhancer Framework" style="width:98%">
+  <br>
+  <em>Overview of the proposed CPA-Enhancer.</em>
+</p>
 
 **Abstract** : Object detection methods under known single degradations have been extensively investigated. However, existing approaches require prior knowledge of the degradation type and train a separate model for each, limiting their practical applications in unpredictable environments. To address this challenge, we propose a chain-of-thought (CoT) prompted adaptive enhancer, CPA-Enhancer, for object detection under unknown degradations. Specifically, CPA-Enhancer progressively adapts its enhancement strategy under the step-by-step guidance of CoT prompts, that encode degradation-related information. To the best of our knowledge, it’s the first work that exploits CoT prompting for object detection tasks. Overall, CPA-Enhancer is a plug-and-play enhancement model that can be integrated into any generic detectors to achieve substantial gains on degraded images, without knowing the degradation type priorly. Experimental results demonstrate that CPA-Enhancer not only sets the new state of the art for object detection but also boosts the performance of other downstream vision tasks under multiple unknown degradations.
-
-# 🛠️ Installation
+## 🛠️ Installation
 
 - **Step0**. Download and install [Miniconda](https://docs.anaconda.com/free/miniconda/) from the official website.
 - **Step1**. Create a conda environment and activate it.
@@ -33,9 +38,9 @@ cd CPA_Enhancer
 pip install -r ./cpa/requirements.txt
 ```
 
-# 📁 Data Preparation
+## 📁 Data Preparation
 
-## Synthetic Datasets
+### Synthetic Datasets
 
 - **Step1**. Download [VOC PASCAL](http://host.robots.ox.ac.uk/pascal/VOC/) trainval and test data
 
@@ -96,13 +101,13 @@ python cpa/dataSyn/data_make_fog_hybrid.py		 	# VF-HT
 python cpa/dataSyn/data_make_lowlight_hybrid.py 	# VD-HT
 ```
 
-## Real-world Datasets
+### Real-world Datasets
 
 - **Step1**. Download [Exdark](https://github.com/cs-chan/Exclusively-Dark-Image-Dataset/tree/master/Dataset) and [RTTS](https://sites.google.com/view/reside-dehaze-datasets/reside-%CE%B2) datasets.
 - **Step2**. Restructure the RTTS dataset (4322 images) into VOC format, ensuring that the directory conforms to this basic structure.
 
 ```shell
-RTTS          # path:  G:\dataset\detection\RTTS
+RTTS          # path\to\RTTS
 ├── Annotations
 |    └──xxx.xml
 |       ...
@@ -117,7 +122,7 @@ RTTS          # path:  G:\dataset\detection\RTTS
 - **Step3**. Similarly, restructure the ExdarkA dataset (containing 5 categories, with a total of 1283 images) and the ExdarkB dataset (containing 10 categories, with a total of 2563 images) into VOC format.
 
 ```shell
-exdark_5 (exdark_10)         # path:  G:\dataset\detection\ExDark\ExDarkA (ExDarkB)
+exdark_5 (exdark_10)         #  path\to\ExDarkA (ExDarkB)
 ├── Annotations
 |    └──xxx.xml
 |       ...
@@ -129,9 +134,9 @@ exdark_5 (exdark_10)         # path:  G:\dataset\detection\ExDark\ExDarkA (ExDar
         ...
 ```
 
-# 🎯 Usage
+## 🎯 Usage
 
-## 📍 All-in-One Setting
+### 📍 All-in-One Setting
 
 - **Step 1.** Modify the `METAINFO` in `mmdet/datasets/voc.py`
 
@@ -170,6 +175,8 @@ pip install -v -e .
 
 - **Step 5.** Modify the `data_root` ,`ann_file`and `data_prefix` in `configs\yolo\cpa_config.py` to match your actual paths of the used datasets.
 
+> The pretrained models and training/testing logs can be found in `checkpoint.zip`
+
 🔹 **Train** 
 
 ```shell
@@ -195,7 +202,7 @@ python demo/cpa_demo.py \
 	--out-dir ../cpa/output # output file
 ```
 
-## 📍 One-by-One Setting
+### 📍 One-by-One Setting
 
 For the foggy conditions (containing five categories), the overall process is the same as above (Step1-5).
 
@@ -232,10 +239,31 @@ bbox_head=dict(
 ```
 
 
-# 📊 Results
+## 📊 Results
+### Quantitative results
+<p align="center">
+  <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/result_all.png" alt="Overall Workflow of the CPA-Enhancer Framework" style="width:60%">
+  <br>
+  <em>Quantitative comparisons under the all-in-one setting.</em>
+</p>
+<p align="center">
+  <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/result_fog.png" alt="Image 1" style="height:300px">
+  <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/result_dark.png" alt="Image 2" style="height:295px">
+</p>
+<p align="center">
+  <em>Comparisons in the one-by-one setting under the foggy degradation (left) and low-light degradation (right)</em>
+</p>
 
-You can download our training and testing logs.
+### Visual Results
+<p align="center">
+  <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/all.png" alt="Overall Workflow of the CPA-Enhancer Framework" style="width:80%">
+  <br>
+  <em>Visual comparisons of CPA-Enhancer under the all-in-one setting.</em>
+</p>
 
-# 💐 Acknowledgments
+
+
+
+## 💐 Acknowledgments
 
 Special thanks to the creators of [mmdetection](https://github.com/open-mmlab/mmdetection) upon which this code is built, for their valuable work in advancing object detection research.
