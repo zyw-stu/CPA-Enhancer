@@ -1,5 +1,5 @@
 # CPA-Enhancer: Chain-of-Thought Prompted Adaptive Enhancer for Object Detection under Unknown Degradations
-**ArXiv Preprint**: [Arxiv 2403.11220](https://arxiv.org/abs/2403.11220)
+📰 **ArXiv Preprint**: [Arxiv 2403.11220](https://arxiv.org/abs/2403.11220)
 ##  🚀 Overview
 <p align="center">
   <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/overall.png" alt="Overall Workflow of the CPA-Enhancer Framework" style="width:98%">
@@ -269,3 +269,16 @@ bbox_head=dict(
 ## 💐 Acknowledgments
 
 Special thanks to the creators of [mmdetection](https://github.com/open-mmlab/mmdetection) upon which this code is built, for their valuable work in advancing object detection research.
+
+## 🔗 Citation
+If you use this codebase, or CPA-Enhancer inspires your work, we would greatly appreciate it if you could star the repository and cite it using the following BibTeX entry.
+```
+@misc{zhang2024cpaenhancer,
+      title={CPA-Enhancer: Chain-of-Thought Prompted Adaptive Enhancer for Object Detection under Unknown Degradations}, 
+      author={Yuwei Zhang and Yan Wu and Yanming Liu and Xinyue Peng},
+      year={2024},
+      eprint={2403.11220},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
