@@ -1,4 +1,5 @@
 # CPA-Enhancer: Chain-of-Thought Prompted Adaptive Enhancer for Object Detection under Unknown Degradations
+**ArXiv Preprint**: [Arxiv 2403.11220](https://arxiv.org/abs/2403.11220)
 ##  🚀 Overview
 <p align="center">
   <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/overall.png" alt="Overall Workflow of the CPA-Enhancer Framework" style="width:98%">
@@ -7,6 +8,7 @@
 </p>
 
 **Abstract** : Object detection methods under known single degradations have been extensively investigated. However, existing approaches require prior knowledge of the degradation type and train a separate model for each, limiting their practical applications in unpredictable environments. To address this challenge, we propose a chain-of-thought (CoT) prompted adaptive enhancer, CPA-Enhancer, for object detection under unknown degradations. Specifically, CPA-Enhancer progressively adapts its enhancement strategy under the step-by-step guidance of CoT prompts, that encode degradation-related information. To the best of our knowledge, it’s the first work that exploits CoT prompting for object detection tasks. Overall, CPA-Enhancer is a plug-and-play enhancement model that can be integrated into any generic detectors to achieve substantial gains on degraded images, without knowing the degradation type priorly. Experimental results demonstrate that CPA-Enhancer not only sets the new state of the art for object detection but also boosts the performance of other downstream vision tasks under multiple unknown degradations.
+
 ## 🛠️ Installation
 
 - **Step0**. Download and install [Miniconda](https://docs.anaconda.com/free/miniconda/) from the official website.
