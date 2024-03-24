@@ -244,25 +244,19 @@ class ContentDrivenPromptBlock(nn.Module):
             TransformerBlock(dim=dim // num_splits, num_heads=1, ffn_expansion_factor=2.66, bias=False,
                              LayerNorm_type='WithBias') for _ in range(num_splits)]
 
-    def forward(self, x, prompt_param):  # x: 原始图像 patt1n: 粗糙的SIM
+    def forward(self, x, prompt_param):  
         # latent: (b,dim*8,h/8,w/8)  prompt_param3: (1, 256, 16, 16)
         x_ = x
         B, C, H, W = x.shape
-        cattn = self.ca(x)  # 通道注意力
-        sattn = self.sa(x)  # 空间注意力
-        pattn1 = sattn + cattn  # 粗糙的SIM [b,c,h,w]
-
+        cattn = self.ca(x)  # channel-wise attn
+        sattn = self.sa(x)  # spatial-wise attn
+        pattn1 = sattn + cattn  
         pattn1 = pattn1.unsqueeze(dim=2)  # [b,c,1,h,w]
         x = x.unsqueeze(dim=2)  # [b,c,1,h,w]
-        x2 = torch.cat([x, pattn1], dim=2)  # 连接 [b,c,2,h,w]
+        x2 = torch.cat([x, pattn1], dim=2)  #  [b,c,2,h,w]
         x2 = Rearrange('b c t h w -> b (c t) h w')(x2)  # [b,c*2,h,w]
-
-        # 添加Channel_Shuffle !!
-        x2 = self.myshuffle(x2)  # 分组为2时，suffle后的通道[c1,c1_att,c2,c2_att,...]，一共2c
-        pattn2 = self.pa2(x2)  # 7x7的分组卷积 [b,c,h,w]  分组卷积group=c
-        # 原始图片每一组大小[b,2,h,w], 共c个组。对应组有1个（c/c=1）2x7x7的卷积核, 卷积之后[b,1,h,w] 相当于是对该通道的卷积
-        # 相当于对每个通道分配唯一的SIM
-        # C组卷积结果拼接起来之后，得到[b,c,h,w]
+        x2 = self.myshuffle(x2)  # [c1,c1_att,c2,c2_att,...]
+        pattn2 = self.pa2(x2)  
         pattn2 = self.conv1x1(pattn2)  # [b,prompt_dim,h,w]
         prompt_weight = self.sigmoid(pattn2)  # Sigmod
 
