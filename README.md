@@ -1,5 +1,8 @@
 # CPA-Enhancer: Chain-of-Thought Prompted Adaptive Enhancer for Object Detection under Unknown Degradations
 📰 **ArXiv Preprint**: [Arxiv 2403.11220](https://arxiv.org/abs/2403.11220)
+## ✅ Updates
+- `March. 24th, 2024`: We have released the [CPA-Seg](https://github.com/zyw-stu/CPA-Seg) for segmentation tasks of CPA-Enhancer.
+
 ##  🚀 Overview
 <p align="center">
   <img src="https://github.com/zyw-stu/CPA_Enhancer/blob/main/cpa/pics/overall.png" alt="Overall Workflow of the CPA-Enhancer Framework" style="width:98%">
