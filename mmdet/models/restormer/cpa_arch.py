@@ -240,9 +240,9 @@ class ContentDrivenPromptBlock(nn.Module):
         self.ca = ChannelAttention(dim, reduction)
         self.myshuffle = Channel_Shuffle(2)
         self.out_conv1 = nn.Conv2d(prompt_dim + dim, dim, kernel_size=1, stride=1, bias=False)
-        self.transformer_block = [
+        self.transformer_block = nn.Sequential(*[
             TransformerBlock(dim=dim // num_splits, num_heads=1, ffn_expansion_factor=2.66, bias=False,
-                             LayerNorm_type='WithBias') for _ in range(num_splits)]
+                             LayerNorm_type='WithBias') for _ in range(num_splits)])
 
     def forward(self, x, prompt_param):  
         # latent: (b,dim*8,h/8,w/8)  prompt_param3: (1, 256, 16, 16)
