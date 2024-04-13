@@ -77,7 +77,8 @@ class MySingleStageDetector(BaseDetector):
         Returns:
             dict: A dictionary of loss components.
         """
-        x = self.extract_feat(batch_inputs)
+        restored_fea= self.restormer(batch_inputs)
+        x = self.extract_feat(restored_fea)
         losses = self.bbox_head.loss(x, batch_data_samples)
         return losses
 
@@ -108,8 +109,9 @@ class MySingleStageDetector(BaseDetector):
                     (num_instances, ).
                 - bboxes (Tensor): Has a shape (num_instances, 4),
                     the last dimension 4 arrange as (x1, y1, x2, y2).
-        """
-        x = self.extract_feat(batch_inputs)
+        """          
+       restored_fea= self.restormer(batch_inputs)
+        x = self.extract_feat(restored_fea)
         results_list = self.bbox_head.predict(
             x, batch_data_samples, rescale=rescale)
         batch_data_samples = self.add_pred_to_datasample(
